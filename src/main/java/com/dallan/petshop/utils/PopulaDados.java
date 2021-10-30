@@ -8,12 +8,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.dallan.petshop.domain.Categoria;
+import com.dallan.petshop.domain.Cidade;
 import com.dallan.petshop.domain.Especie;
+import com.dallan.petshop.domain.Estado;
 import com.dallan.petshop.domain.Pet;
 import com.dallan.petshop.domain.Produto;
 import com.dallan.petshop.domain.Raca;
 import com.dallan.petshop.repositories.CategoriaRepository;
+import com.dallan.petshop.repositories.CidadeRepository;
 import com.dallan.petshop.repositories.EspecieRepository;
+import com.dallan.petshop.repositories.EstadoRepository;
 import com.dallan.petshop.repositories.PetRepository;
 import com.dallan.petshop.repositories.ProdutoRepository;
 import com.dallan.petshop.repositories.RacaRepository;
@@ -35,6 +39,12 @@ public class PopulaDados {
 
 	@Autowired
 	private PetRepository petRepository;
+
+	@Autowired
+	private EstadoRepository estadoRepository;
+
+	@Autowired
+	private CidadeRepository cidadeRepository;
 
 	@PostConstruct
 	public void cadastrar() {
@@ -73,6 +83,17 @@ public class PopulaDados {
 		Pet pet3 = new Pet(null, "Mewth", 8, esp2, rac3);
 
 		petRepository.saveAll(Arrays.asList(pet1, pet2, pet3));
+
+		Estado est1 = new Estado(null, "Minas Gerais");
+		Estado est2 = new Estado(null, "São Paulo");
+
+		estadoRepository.saveAll(Arrays.asList(est1, est2));
+
+		Cidade c1 = new Cidade(null, "Belo Horizonte", est1);
+		Cidade c2 = new Cidade(null, "Capelinha", est1);
+		Cidade c3 = new Cidade(null, "São Paulo", est2);
+
+		cidadeRepository.saveAll(Arrays.asList(c1, c2, c3));
 	}
 
 }
