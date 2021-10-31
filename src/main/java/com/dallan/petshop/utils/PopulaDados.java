@@ -9,15 +9,20 @@ import org.springframework.stereotype.Component;
 
 import com.dallan.petshop.domain.Categoria;
 import com.dallan.petshop.domain.Cidade;
+import com.dallan.petshop.domain.Cliente;
+import com.dallan.petshop.domain.Endereco;
 import com.dallan.petshop.domain.Especie;
 import com.dallan.petshop.domain.Estado;
+import com.dallan.petshop.domain.Funcionario;
 import com.dallan.petshop.domain.Pet;
 import com.dallan.petshop.domain.Produto;
 import com.dallan.petshop.domain.Raca;
 import com.dallan.petshop.repositories.CategoriaRepository;
 import com.dallan.petshop.repositories.CidadeRepository;
+import com.dallan.petshop.repositories.EnderecoRepository;
 import com.dallan.petshop.repositories.EspecieRepository;
 import com.dallan.petshop.repositories.EstadoRepository;
+import com.dallan.petshop.repositories.PessoaRepository;
 import com.dallan.petshop.repositories.PetRepository;
 import com.dallan.petshop.repositories.ProdutoRepository;
 import com.dallan.petshop.repositories.RacaRepository;
@@ -45,6 +50,12 @@ public class PopulaDados {
 
 	@Autowired
 	private CidadeRepository cidadeRepository;
+
+	@Autowired
+	private PessoaRepository pessoaRepository;
+
+	@Autowired
+	private EnderecoRepository enderecoRepository;
 
 	@PostConstruct
 	public void cadastrar() {
@@ -94,6 +105,20 @@ public class PopulaDados {
 		Cidade c3 = new Cidade(null, "São Paulo", est2);
 
 		cidadeRepository.saveAll(Arrays.asList(c1, c2, c3));
+
+		Cliente clt1 = new Cliente(null, "Jose Maria", "jose@mail.com", "335.194.320-21", "FISICA");
+		clt1.getTelefones().addAll(Arrays.asList("3516-2000", "9191-0000"));
+
+		Funcionario fnc1 = new Funcionario(null, "Maria Jose", "maria@mail.com", "551.872.200.12", "ATENDENTE");
+		fnc1.getTelefones().addAll(Arrays.asList("3279-0001", "9090-0002"));
+
+		pessoaRepository.saveAll(Arrays.asList(clt1, fnc1));
+
+		Endereco end1 = new Endereco(null, "Rua Tupis", "500", "Apto 101", "Pindorama", "30111222", clt1, c1);
+		Endereco end2 = new Endereco(null, "Av. Tamoios", "100", "Casa", "Oca", "3968000", fnc1, c2);
+		Endereco end3 = new Endereco(null, "Rua Aranãs", "10", "Apto 201", "Centro", "01153000", fnc1, c3);
+
+		enderecoRepository.saveAll(Arrays.asList(end1, end2, end3));
 	}
 
 }
