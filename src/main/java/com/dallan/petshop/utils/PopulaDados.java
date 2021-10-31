@@ -134,17 +134,22 @@ public class PopulaDados {
 		enderecoRepository.saveAll(Arrays.asList(end1, end2, end3));
 
 		Servico srv1 = new Servico(null, sdf.parse("02/09/2021 09:00"), sdf.parse("02/09/2021 12:00"), "Tosa", clt1,
-				fnc1);
+				fnc1, pet1);
 		Servico srv2 = new Servico(null, sdf.parse("03/09/2021 12:00"), sdf.parse("04/09/2021 12:00"), "Hotel", clt1,
-				fnc1);
+				fnc1, pet2);
 		Servico srv3 = new Servico(null, sdf.parse("05/09/2021 16:00"), sdf.parse("05/09/2021 16:30"), "Vermifugação",
-				clt1, fnc1);
+				clt1, fnc1, pet3);
 
 		Pagamento pagto1 = new PagCartao(null, SituacaoPagamento.QUITADO, srv2, 6);
 		Pagamento pagto2 = new PagDinheiro(null, SituacaoPagamento.PENDENTE, srv1, sdf.parse("20/10/2021 00:00"), null);
+		Pagamento pagto3 = new PagDinheiro(null, SituacaoPagamento.QUITADO, srv3, sdf.parse("05/09/2021 16:30"), null);
 
 		srv1.setPagamento(pagto2);
 		srv2.setPagamento(pagto1);
+		srv3.setPagamento(pagto3);
+
+		srv2.getProdutos().addAll(Arrays.asList(p1, p2, p4));
+		srv3.getProdutos().addAll(Arrays.asList(p3));
 
 		servicoRepository.saveAll(Arrays.asList(srv1, srv2, srv3));
 	}

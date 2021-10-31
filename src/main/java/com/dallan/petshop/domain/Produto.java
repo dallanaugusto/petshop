@@ -28,6 +28,10 @@ public class Produto implements Serializable {
 	@ManyToMany(mappedBy = "produtos")
 	private List<Categoria> categorias = new ArrayList<>();
 
+	@JsonIgnore
+	@ManyToMany(mappedBy = "produtos")
+	private List<Servico> servicos = new ArrayList<>();
+
 	public Produto() {
 		super();
 	}
@@ -86,6 +90,14 @@ public class Produto implements Serializable {
 
 	public void setCategorias(List<Categoria> categorias) {
 		this.categorias = categorias;
+	}
+
+	public List<Servico> getServicos() {
+		return servicos;
+	}
+
+	public void setServicos(List<Servico> servicos) {
+		this.servicos = servicos;
 	}
 
 }
