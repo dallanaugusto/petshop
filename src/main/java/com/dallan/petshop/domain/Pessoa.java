@@ -20,7 +20,7 @@ import javax.persistence.OneToMany;
 
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
-public class Pessoa implements Serializable {
+public abstract class Pessoa implements Serializable {
 
 	private static final long serialVersionUID = -132770297520784993L;
 

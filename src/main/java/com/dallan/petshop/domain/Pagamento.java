@@ -15,14 +15,13 @@ import com.dallan.petshop.domain.enums.SituacaoPagamento;
 
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
-public class Pagamento implements Serializable {
+public abstract class Pagamento implements Serializable {
 
 	private static final long serialVersionUID = 757229768798441198L;
 
 	@Id
 	private Integer id;
-	private Double valor;
-	private SituacaoPagamento situacao;
+	private Integer situacaoCod;
 
 	@OneToOne
 	@JoinColumn(name = "id_servico")
@@ -33,11 +32,10 @@ public class Pagamento implements Serializable {
 		super();
 	}
 
-	public Pagamento(Integer id, Double valor, SituacaoPagamento situacao, Servico servico) {
+	public Pagamento(Integer id, SituacaoPagamento situacao, Servico servico) {
 		super();
 		this.id = id;
-		this.valor = valor;
-		this.situacao = situacao;
+		this.situacaoCod = situacao.getCod();
 		this.servico = servico;
 	}
 
@@ -66,20 +64,12 @@ public class Pagamento implements Serializable {
 		this.id = id;
 	}
 
-	public Double getValor() {
-		return valor;
-	}
-
-	public void setValor(Double valor) {
-		this.valor = valor;
-	}
-
 	public SituacaoPagamento getSituacao() {
-		return situacao;
+		return SituacaoPagamento.toEnum(situacaoCod);
 	}
 
 	public void setSituacao(SituacaoPagamento situacao) {
-		this.situacao = situacao;
+		this.situacaoCod = situacao.getCod();
 	}
 
 	public Servico getServico() {

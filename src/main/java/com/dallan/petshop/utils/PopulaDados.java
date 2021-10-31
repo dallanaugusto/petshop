@@ -1,5 +1,7 @@
 package com.dallan.petshop.utils;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
 
 import javax.annotation.PostConstruct;
@@ -14,9 +16,14 @@ import com.dallan.petshop.domain.Endereco;
 import com.dallan.petshop.domain.Especie;
 import com.dallan.petshop.domain.Estado;
 import com.dallan.petshop.domain.Funcionario;
+import com.dallan.petshop.domain.PagCartao;
+import com.dallan.petshop.domain.PagDinheiro;
+import com.dallan.petshop.domain.Pagamento;
 import com.dallan.petshop.domain.Pet;
 import com.dallan.petshop.domain.Produto;
 import com.dallan.petshop.domain.Raca;
+import com.dallan.petshop.domain.Servico;
+import com.dallan.petshop.domain.enums.SituacaoPagamento;
 import com.dallan.petshop.repositories.CategoriaRepository;
 import com.dallan.petshop.repositories.CidadeRepository;
 import com.dallan.petshop.repositories.EnderecoRepository;
@@ -26,6 +33,7 @@ import com.dallan.petshop.repositories.PessoaRepository;
 import com.dallan.petshop.repositories.PetRepository;
 import com.dallan.petshop.repositories.ProdutoRepository;
 import com.dallan.petshop.repositories.RacaRepository;
+import com.dallan.petshop.repositories.ServicoRepository;
 
 @Component
 public class PopulaDados {
@@ -57,8 +65,13 @@ public class PopulaDados {
 	@Autowired
 	private EnderecoRepository enderecoRepository;
 
+	@Autowired
+	private ServicoRepository servicoRepository;
+
 	@PostConstruct
-	public void cadastrar() {
+	public void cadastrar() throws ParseException {
+
+		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
 
 		Produto p1 = new Produto(null, "Ração", 100.0);
 		Produto p2 = new Produto(null, "Sachê", 80.0);
@@ -119,6 +132,21 @@ public class PopulaDados {
 		Endereco end3 = new Endereco(null, "Rua Aranãs", "10", "Apto 201", "Centro", "01153000", fnc1, c3);
 
 		enderecoRepository.saveAll(Arrays.asList(end1, end2, end3));
+
+		Servico srv1 = new Servico(null, sdf.parse("02/09/2021 09:00"), sdf.parse("02/09/2021 12:00"), "Tosa", clt1,
+				fnc1);
+		Servico srv2 = new Servico(null, sdf.parse("03/09/2021 12:00"), sdf.parse("04/09/2021 12:00"), "Hotel", clt1,
+				fnc1);
+		Servico srv3 = new Servico(null, sdf.parse("05/09/2021 16:00"), sdf.parse("05/09/2021 16:30"), "Vermifugação",
+				clt1, fnc1);
+
+		Pagamento pagto1 = new PagCartao(null, SituacaoPagamento.QUITADO, srv2, 6);
+		Pagamento pagto2 = new PagDinheiro(null, SituacaoPagamento.PENDENTE, srv1, sdf.parse("20/10/2021 00:00"), null);
+
+		srv1.setPagamento(pagto2);
+		srv2.setPagamento(pagto1);
+
+		servicoRepository.saveAll(Arrays.asList(srv1, srv2, srv3));
 	}
 
 }

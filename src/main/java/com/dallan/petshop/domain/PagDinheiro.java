@@ -11,26 +11,25 @@ public class PagDinheiro extends Pagamento {
 
 	private static final long serialVersionUID = -241723093946346362L;
 
-	private Date dataPagamento;
+	private Date dataVencimento;
 	private Double desconto;
 
 	public PagDinheiro() {
 
 	}
 
-	public PagDinheiro(Integer id, Double valor, SituacaoPagamento situacao, Servico servico, Date dataPagamento,
-			Double desconto) {
-		super(id, valor, situacao, servico);
-		this.dataPagamento = dataPagamento;
+	public PagDinheiro(Integer id, SituacaoPagamento situacao, Servico servico, Date dataVencimento, Double desconto) {
+		super(id, situacao, servico);
+		this.dataVencimento = dataVencimento;
 		this.desconto = desconto;
 	}
 
-	public Date getDataPagamento() {
-		return dataPagamento;
+	public Date getDataVencimento() {
+		return dataVencimento;
 	}
 
-	public void setDataPagamento(Date dataPagamento) {
-		this.dataPagamento = dataPagamento;
+	public void setDataVencimento(Date dataVencimento) {
+		this.dataVencimento = dataVencimento;
 	}
 
 	public Double getDesconto() {
