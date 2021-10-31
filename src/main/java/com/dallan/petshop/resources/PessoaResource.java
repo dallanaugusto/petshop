@@ -2,6 +2,7 @@ package com.dallan.petshop.resources;
 
 import java.net.URI;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.dallan.petshop.domain.Pessoa;
+import com.dallan.petshop.dto.PessoaDTO;
 import com.dallan.petshop.services.PessoaService;
 
 @RestController
@@ -56,9 +58,11 @@ public class PessoaResource {
 	}
 
 	@RequestMapping(method = RequestMethod.GET)
-	public ResponseEntity<List<Pessoa>> findAll() {
+	public ResponseEntity<List<PessoaDTO>> findAll() {
 		List<Pessoa> lista = service.findAll();
-		return ResponseEntity.ok().body(lista);
+
+		List<PessoaDTO> listaDTO = lista.stream().map(obj -> new PessoaDTO(obj)).collect(Collectors.toList());
+		return ResponseEntity.ok().body(listaDTO);
 	}
 
 }
