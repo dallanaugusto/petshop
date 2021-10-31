@@ -13,6 +13,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 public class Pet implements Serializable {
 
@@ -32,6 +34,7 @@ public class Pet implements Serializable {
 	@JoinColumn(name = "id_raca")
 	private Raca raca;
 
+	@JsonIgnore
 	@OneToMany(mappedBy = "pet")
 	private List<Servico> servicos = new ArrayList<>();
 
