@@ -1,6 +1,5 @@
 package com.dallan.petshop.domain;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -14,7 +13,7 @@ import javax.persistence.OneToMany;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
-public class Raca implements Serializable {
+public class Raca extends AbstractEntity<Integer> {
 
 	private static final long serialVersionUID = 1124389690043485616L;
 
@@ -54,10 +53,12 @@ public class Raca implements Serializable {
 		return Objects.equals(id, other.id);
 	}
 
+	@Override
 	public Integer getId() {
 		return id;
 	}
 
+	@Override
 	public void setId(Integer id) {
 		this.id = id;
 	}

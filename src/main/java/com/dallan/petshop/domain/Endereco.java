@@ -1,6 +1,5 @@
 package com.dallan.petshop.domain;
 
-import java.io.Serializable;
 import java.util.Objects;
 
 import javax.persistence.Entity;
@@ -13,7 +12,7 @@ import javax.persistence.ManyToOne;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
-public class Endereco implements Serializable {
+public class Endereco extends AbstractEntity<Integer> {
 
 	private static final long serialVersionUID = -5310450684304190427L;
 
@@ -69,10 +68,12 @@ public class Endereco implements Serializable {
 		return Objects.equals(id, other.id);
 	}
 
+	@Override
 	public Integer getId() {
 		return id;
 	}
 
+	@Override
 	public void setId(Integer id) {
 		this.id = id;
 	}

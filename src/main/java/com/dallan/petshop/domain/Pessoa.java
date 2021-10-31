@@ -1,6 +1,5 @@
 package com.dallan.petshop.domain;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -20,7 +19,7 @@ import javax.persistence.OneToMany;
 
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
-public class Pessoa implements Serializable {
+public class Pessoa extends AbstractEntity<Integer> {
 
 	private static final long serialVersionUID = -132770297520784993L;
 
@@ -67,10 +66,12 @@ public class Pessoa implements Serializable {
 		return Objects.equals(id, other.id);
 	}
 
+	@Override
 	public Integer getId() {
 		return id;
 	}
 
+	@Override
 	public void setId(Integer id) {
 		this.id = id;
 	}

@@ -1,6 +1,5 @@
 package com.dallan.petshop.domain;
 
-import java.io.Serializable;
 import java.util.Objects;
 
 import javax.persistence.Entity;
@@ -16,7 +15,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
-public abstract class Pagamento implements Serializable {
+public abstract class Pagamento extends AbstractEntity<Integer> {
 
 	private static final long serialVersionUID = 757229768798441198L;
 
@@ -58,10 +57,12 @@ public abstract class Pagamento implements Serializable {
 		return Objects.equals(id, other.id);
 	}
 
+	@Override
 	public Integer getId() {
 		return id;
 	}
 
+	@Override
 	public void setId(Integer id) {
 		this.id = id;
 	}

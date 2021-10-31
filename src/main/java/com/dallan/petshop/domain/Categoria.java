@@ -1,6 +1,5 @@
 package com.dallan.petshop.domain;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -14,7 +13,7 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 
 @Entity
-public class Categoria implements Serializable {
+public class Categoria extends AbstractEntity<Integer> {
 
 	private static final long serialVersionUID = -488641359677871633L;
 
@@ -54,10 +53,12 @@ public class Categoria implements Serializable {
 		return Objects.equals(id, other.id);
 	}
 
+	@Override
 	public Integer getId() {
 		return id;
 	}
 
+	@Override
 	public void setId(Integer id) {
 		this.id = id;
 	}
