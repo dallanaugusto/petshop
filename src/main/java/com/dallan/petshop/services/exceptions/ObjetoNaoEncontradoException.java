@@ -12,15 +12,15 @@ public class ObjetoNaoEncontradoException extends RuntimeException {
 		super(msg, cause);
 	}
 
-	public ObjetoNaoEncontradoException(Integer entityId, Class<?> entityClass) {
+	public ObjetoNaoEncontradoException(Object entityId, Class<?> entityClass) {
 		super(makeMsg(entityId, entityClass));
 	}
 
-	public ObjetoNaoEncontradoException(Integer entityId, Class<?> entityClass, Throwable cause) {
+	public ObjetoNaoEncontradoException(Object entityId, Class<?> entityClass, Throwable cause) {
 		super(makeMsg(entityId, entityClass), cause);
 	}
 
-	public static String makeMsg(Integer entityId, Class<?> entityClass) {
+	public static String makeMsg(Object entityId, Class<?> entityClass) {
 		return "Objeto não encontrado. ID " + entityId + ", Tipo: " + entityClass.getName();
 	}
 

@@ -4,6 +4,8 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
 
+import javax.annotation.PostConstruct;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -66,7 +68,7 @@ public class PopulaDados {
 	@Autowired
 	private ServicoRepository servicoRepository;
 
-	// @PostConstruct
+	@PostConstruct
 	public void cadastrar() throws ParseException {
 
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
