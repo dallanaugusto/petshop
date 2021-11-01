@@ -1,11 +1,6 @@
 package com.dallan.petshop.resources;
 
-import java.util.List;
-import java.util.stream.Collectors;
-
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.dallan.petshop.domain.Pessoa;
@@ -15,24 +10,20 @@ import com.dallan.petshop.services.PessoaService;
 
 @RestController
 @RequestMapping(value = "/pessoas")
-public class PessoaResource extends AbstractResource<Pessoa, Integer, PessoaRepository, PessoaService> {
+public class PessoaResource extends AbstractResource<Pessoa, Integer, PessoaDTO, PessoaRepository, PessoaService> {
 
 	@Override
-	public Pessoa copyAtributosParaUpdate(Pessoa obj, Pessoa other) {
-		obj.setNome(other.getNome());
-		obj.setEmail(other.getEmail());
-		obj.setCodNacional(other.getCodNacional());
-		obj.setTelefones(other.getTelefones());
-
-		return obj;
+	public Pessoa makeEntityFromDTO(PessoaDTO dto) {
+		return new Pessoa(dto.getId(), dto.getNome(), dto.getEmail(), dto.getCodNacional());
 	}
 
-	@RequestMapping(method = RequestMethod.GET)
-	public ResponseEntity<List<PessoaDTO>> findAll() {
-		List<Pessoa> lista = service.findAll();
-
-		List<PessoaDTO> listaDTO = lista.stream().map(obj -> new PessoaDTO(obj)).collect(Collectors.toList());
-		return ResponseEntity.ok().body(listaDTO);
+	@Override
+	public Pessoa mergeDTOIntoEntity(PessoaDTO dto, Pessoa entity) {
+		entity.setId(dto.getId());
+		entity.setNome(dto.getNome());
+		entity.setEmail(dto.getEmail());
+		entity.setCodNacional(dto.getCodNacional());
+		return entity;
 	}
 
 }

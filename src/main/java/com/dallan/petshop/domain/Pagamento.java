@@ -15,7 +15,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
-public abstract class Pagamento extends AbstractEntity<Integer> {
+public class Pagamento extends AbstractEntity<Integer> {
 
 	private static final long serialVersionUID = 757229768798441198L;
 

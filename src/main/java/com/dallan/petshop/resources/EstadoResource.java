@@ -4,17 +4,24 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.dallan.petshop.domain.Estado;
+import com.dallan.petshop.dto.EstadoDTO;
 import com.dallan.petshop.repositories.EstadoRepository;
 import com.dallan.petshop.services.EstadoService;
 
 @RestController
 @RequestMapping(value = "/estados")
-public class EstadoResource extends AbstractResource<Estado, Integer, EstadoRepository, EstadoService> {
+public class EstadoResource extends AbstractResource<Estado, Integer, EstadoDTO, EstadoRepository, EstadoService> {
 
 	@Override
-	public Estado copyAtributosParaUpdate(Estado obj, Estado other) {
-		obj.setNome(other.getNome());
-		return obj;
+	public Estado makeEntityFromDTO(EstadoDTO dto) {
+		return new Estado(dto.getId(), dto.getNome());
+	}
+
+	@Override
+	public Estado mergeDTOIntoEntity(EstadoDTO dto, Estado entity) {
+		entity.setId(dto.getId());
+		entity.setNome(dto.getNome());
+		return entity;
 	}
 
 }

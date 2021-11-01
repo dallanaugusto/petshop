@@ -4,17 +4,24 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.dallan.petshop.domain.Especie;
+import com.dallan.petshop.dto.EspecieDTO;
 import com.dallan.petshop.repositories.EspecieRepository;
 import com.dallan.petshop.services.EspecieService;
 
 @RestController
 @RequestMapping(value = "/especies")
-public class EspecieResource extends AbstractResource<Especie, Integer, EspecieRepository, EspecieService> {
+public class EspecieResource extends AbstractResource<Especie, Integer, EspecieDTO, EspecieRepository, EspecieService> {
 
 	@Override
-	public Especie copyAtributosParaUpdate(Especie obj, Especie other) {
-		obj.setDescricao(other.getDescricao());
-		return obj;
+	public Especie makeEntityFromDTO(EspecieDTO dto) {
+		return new Especie(dto.getId(), dto.getDescricao());
+	}
+
+	@Override
+	public Especie mergeDTOIntoEntity(EspecieDTO dto, Especie entity) {
+		entity.setId(dto.getId());
+		entity.setDescricao(dto.getDescricao());
+		return entity;
 	}
 
 }

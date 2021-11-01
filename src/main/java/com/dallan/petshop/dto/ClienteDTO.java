@@ -1,21 +1,23 @@
 package com.dallan.petshop.dto;
 
-import com.dallan.petshop.domain.Pessoa;
+import com.dallan.petshop.domain.Cliente;
 
-public class PessoaDTO extends AbstractDTO<Pessoa, Integer> {
+public class ClienteDTO extends AbstractDTO<Cliente, Integer> {
 
-	private static final long serialVersionUID = 3573312859727054454L;
+	private static final long serialVersionUID = -4508902340431984130L;
 
 	private String nome;
 	private String email;
 	private String codNacional;
+	private String tipo;
 
 	@Override
-	public void copyFromEntity(Pessoa entity) {
+	public void copyFromEntity(Cliente entity) {
 		this.id = entity.getId();
 		this.nome = entity.getNome();
 		this.email = entity.getEmail();
 		this.codNacional = entity.getCodNacional();
+		this.tipo = entity.getTipo();
 	}
 
 	public String getNome() {
@@ -40,6 +42,14 @@ public class PessoaDTO extends AbstractDTO<Pessoa, Integer> {
 
 	public void setCodNacional(String codNacional) {
 		this.codNacional = codNacional;
+	}
+
+	public String getTipo() {
+		return tipo;
+	}
+
+	public void setTipo(String tipo) {
+		this.tipo = tipo;
 	}
 
 }

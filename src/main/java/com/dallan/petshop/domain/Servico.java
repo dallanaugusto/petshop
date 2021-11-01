@@ -74,6 +74,19 @@ public class Servico extends AbstractEntity<Integer> {
 		this.pet = pet;
 	}
 
+	public Servico(Integer id, Date dataEntrada, Date dataSaida, String descricao, Pagamento pagamento, Cliente cliente,
+			Funcionario funcionario, Pet pet) {
+		super();
+		this.id = id;
+		this.dataEntrada = dataEntrada;
+		this.dataSaida = dataSaida;
+		this.descricao = descricao;
+		this.pagamento = pagamento;
+		this.cliente = cliente;
+		this.funcionario = funcionario;
+		this.pet = pet;
+	}
+
 	@Override
 	public int hashCode() {
 		return Objects.hash(id);

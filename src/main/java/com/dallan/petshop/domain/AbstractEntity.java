@@ -7,6 +7,10 @@ public abstract class AbstractEntity<ID> implements Serializable {
 
 	private static final long serialVersionUID = 3098718694570608950L;
 
+	public abstract ID getId();
+
+	public abstract void setId(ID id);
+
 	@Override
 	public int hashCode() {
 		return Objects.hash(getId());
@@ -24,9 +28,5 @@ public abstract class AbstractEntity<ID> implements Serializable {
 		AbstractEntity<ID> other = (AbstractEntity<ID>) obj;
 		return Objects.equals(getId(), other.getId());
 	}
-
-	public abstract ID getId();
-
-	public abstract void setId(ID id);
 
 }

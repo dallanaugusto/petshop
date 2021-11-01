@@ -47,7 +47,7 @@ public class Endereco extends AbstractEntity<Integer> {
 		this.complemento = complemento;
 		this.bairro = bairro;
 		this.cep = cep;
-		this.setPessoa(pessoa);
+		this.pessoa = pessoa;
 		this.cidade = cidade;
 	}
 
