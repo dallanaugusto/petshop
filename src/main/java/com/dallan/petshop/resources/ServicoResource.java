@@ -9,8 +9,9 @@ import com.dallan.petshop.domain.Funcionario;
 import com.dallan.petshop.domain.Servico;
 import com.dallan.petshop.dto.ServicoDTO;
 import com.dallan.petshop.repositories.ServicoRepository;
+import com.dallan.petshop.services.ClienteService;
+import com.dallan.petshop.services.FuncionarioService;
 import com.dallan.petshop.services.PagamentoService;
-import com.dallan.petshop.services.PessoaService;
 import com.dallan.petshop.services.PetService;
 import com.dallan.petshop.services.ServicoService;
 
@@ -22,7 +23,10 @@ public class ServicoResource extends AbstractResource<Servico, Integer, ServicoD
 	private PagamentoService pagamentoService;
 
 	@Autowired
-	private PessoaService pessoaService;
+	private ClienteService clienteService;
+
+	@Autowired
+	private FuncionarioService funcionarioService;
 
 	@Autowired
 	private PetService petService;
@@ -30,8 +34,8 @@ public class ServicoResource extends AbstractResource<Servico, Integer, ServicoD
 	@Override
 	public Servico makeEntityFromDTO(ServicoDTO dto) {
 		return new Servico(dto.getId(), dto.getDataEntrada(), dto.getDataSaida(), dto.getDescricao(),
-				pagamentoService.find(dto.getPagamento()), (Cliente) pessoaService.find(dto.getCliente()),
-				(Funcionario) pessoaService.find(dto.getFuncionario()), petService.find(dto.getPet()));
+				pagamentoService.find(dto.getPagamento()), clienteService.find(dto.getCliente()),
+				funcionarioService.find(dto.getFuncionario()), petService.find(dto.getPet()));
 	}
 
 	@Override
@@ -41,8 +45,8 @@ public class ServicoResource extends AbstractResource<Servico, Integer, ServicoD
 		entity.setDataSaida(dto.getDataSaida());
 		entity.setDescricao(dto.getDescricao());
 		entity.setPagamento(pagamentoService.find(dto.getPagamento()));
-		entity.setCliente((Cliente) pessoaService.find(dto.getCliente()));
-		entity.setFuncionario((Funcionario) pessoaService.find(dto.getFuncionario()));
+		entity.setCliente((Cliente) clienteService.find(dto.getCliente()));
+		entity.setFuncionario((Funcionario) funcionarioService.find(dto.getFuncionario()));
 		entity.setPet(petService.find(dto.getPet()));
 		return entity;
 	}

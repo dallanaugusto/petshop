@@ -12,13 +12,10 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 
 @Entity
-@Inheritance(strategy = InheritanceType.JOINED)
 public class Pessoa extends AbstractEntity<Integer> {
 
 	private static final long serialVersionUID = -132770297520784993L;

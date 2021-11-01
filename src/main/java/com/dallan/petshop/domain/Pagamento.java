@@ -3,30 +3,28 @@ package com.dallan.petshop.domain;
 import java.util.Objects;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
-import javax.persistence.MapsId;
 import javax.persistence.OneToOne;
 
 import com.dallan.petshop.domain.enums.SituacaoPagamento;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
-@Inheritance(strategy = InheritanceType.JOINED)
 public class Pagamento extends AbstractEntity<Integer> {
 
 	private static final long serialVersionUID = 757229768798441198L;
 
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	private Integer situacaoCod;
 
 	@JsonIgnore
 	@OneToOne
 	@JoinColumn(name = "id_servico")
-	@MapsId
 	private Servico servico;
 
 	public Pagamento() {

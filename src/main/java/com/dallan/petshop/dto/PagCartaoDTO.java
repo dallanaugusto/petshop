@@ -6,32 +6,14 @@ public class PagCartaoDTO extends AbstractDTO<PagCartao, Integer> {
 
 	private static final long serialVersionUID = -6210756431396417593L;
 
-	private String situacao;
-	private Integer servico;
 	private Integer parcelas;
+	private Integer pagamento;
 
 	@Override
 	public void copyFromEntity(PagCartao entity) {
 		this.id = entity.getId();
-		this.situacao = entity.getSituacao().getDescricao();
-		this.servico = entity.getServico().getId();
 		this.parcelas = entity.getParcelas();
-	}
-
-	public String getSituacao() {
-		return situacao;
-	}
-
-	public void setSituacao(String situacao) {
-		this.situacao = situacao;
-	}
-
-	public Integer getServico() {
-		return servico;
-	}
-
-	public void setServico(Integer servico) {
-		this.servico = servico;
+		this.pagamento = entity.getPagamento().getId();
 	}
 
 	public Integer getParcelas() {
@@ -40,6 +22,14 @@ public class PagCartaoDTO extends AbstractDTO<PagCartao, Integer> {
 
 	public void setParcelas(Integer parcelas) {
 		this.parcelas = parcelas;
+	}
+
+	public Integer getPagamento() {
+		return pagamento;
+	}
+
+	public void setPagamento(Integer pagamento) {
+		this.pagamento = pagamento;
 	}
 
 }

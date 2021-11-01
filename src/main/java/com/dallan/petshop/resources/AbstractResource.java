@@ -82,6 +82,7 @@ public abstract class AbstractResource<E extends AbstractEntity<ID>, ID, DTO ext
 	public ResponseEntity<Void> update(@RequestBody DTO dto, @PathVariable ID id) {
 		E oldEntity = service.find(id);
 		E entity = mergeDTOIntoEntity(dto, oldEntity);
+		entity.setId(id);
 		entity = service.update(entity);
 		return ResponseEntity.noContent().build();
 	}

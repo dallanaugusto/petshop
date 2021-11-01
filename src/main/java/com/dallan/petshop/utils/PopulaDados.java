@@ -19,6 +19,7 @@ import com.dallan.petshop.domain.Funcionario;
 import com.dallan.petshop.domain.PagCartao;
 import com.dallan.petshop.domain.PagDinheiro;
 import com.dallan.petshop.domain.Pagamento;
+import com.dallan.petshop.domain.Pessoa;
 import com.dallan.petshop.domain.Pet;
 import com.dallan.petshop.domain.Produto;
 import com.dallan.petshop.domain.Raca;
@@ -26,10 +27,13 @@ import com.dallan.petshop.domain.Servico;
 import com.dallan.petshop.domain.enums.SituacaoPagamento;
 import com.dallan.petshop.repositories.CategoriaRepository;
 import com.dallan.petshop.repositories.CidadeRepository;
+import com.dallan.petshop.repositories.ClienteRepository;
 import com.dallan.petshop.repositories.EnderecoRepository;
 import com.dallan.petshop.repositories.EspecieRepository;
 import com.dallan.petshop.repositories.EstadoRepository;
-import com.dallan.petshop.repositories.PessoaRepository;
+import com.dallan.petshop.repositories.FuncionarioRepository;
+import com.dallan.petshop.repositories.PagCartaoRepository;
+import com.dallan.petshop.repositories.PagDinheiroRepository;
 import com.dallan.petshop.repositories.PetRepository;
 import com.dallan.petshop.repositories.ProdutoRepository;
 import com.dallan.petshop.repositories.RacaRepository;
@@ -60,10 +64,19 @@ public class PopulaDados {
 	private CidadeRepository cidadeRepository;
 
 	@Autowired
-	private PessoaRepository pessoaRepository;
+	private ClienteRepository clienteRepository;
+
+	@Autowired
+	private FuncionarioRepository funcionarioRepository;
 
 	@Autowired
 	private EnderecoRepository enderecoRepository;
+
+	@Autowired
+	private PagCartaoRepository pagCartaoRepository;
+
+	@Autowired
+	private PagDinheiroRepository pagDinheiroRepository;
 
 	@Autowired
 	private ServicoRepository servicoRepository;
@@ -119,17 +132,23 @@ public class PopulaDados {
 
 		cidadeRepository.saveAll(Arrays.asList(c1, c2, c3));
 
-		Cliente clt1 = new Cliente(null, "Jose Maria", "jose@mail.com", "335.194.320-21", "FISICA");
-		clt1.getTelefones().addAll(Arrays.asList("3516-2000", "9191-0000"));
+		Pessoa pes1 = new Pessoa(null, "Jose Maria", "jose@mail.com", "335.194.320-21");
+		Pessoa pes2 = new Pessoa(null, "Maria Jose", "maria@mail.com", "551.872.200.12");
 
-		Funcionario fnc1 = new Funcionario(null, "Maria Jose", "maria@mail.com", "551.872.200.12", "ATENDENTE");
-		fnc1.getTelefones().addAll(Arrays.asList("3279-0001", "9090-0002"));
+		pes1.getTelefones().addAll(Arrays.asList("3516-2000", "9191-0000"));
+		pes2.getTelefones().addAll(Arrays.asList("3279-0001", "9090-0002"));
 
-		pessoaRepository.saveAll(Arrays.asList(clt1, fnc1));
+		Cliente clt1 = new Cliente(null, "FISICA", pes1);
 
-		Endereco end1 = new Endereco(null, "Rua Tupis", "500", "Apto 101", "Pindorama", "30111222", clt1, c1);
-		Endereco end2 = new Endereco(null, "Av. Tamoios", "100", "Casa", "Oca", "3968000", fnc1, c2);
-		Endereco end3 = new Endereco(null, "Rua Aranãs", "10", "Apto 201", "Centro", "01153000", fnc1, c3);
+		clienteRepository.saveAll(Arrays.asList(clt1));
+
+		Funcionario fnc1 = new Funcionario(null, "ATENDENTE", pes2);
+
+		funcionarioRepository.saveAll(Arrays.asList(fnc1));
+
+		Endereco end1 = new Endereco(null, "Rua Tupis", "500", "Apto 101", "Pindorama", "30111222", pes1, c1);
+		Endereco end2 = new Endereco(null, "Av. Tamoios", "100", "Casa", "Oca", "3968000", pes2, c2);
+		Endereco end3 = new Endereco(null, "Rua Aranãs", "10", "Apto 201", "Centro", "01153000", pes2, c3);
 
 		enderecoRepository.saveAll(Arrays.asList(end1, end2, end3));
 
@@ -140,18 +159,23 @@ public class PopulaDados {
 		Servico srv3 = new Servico(null, sdf.parse("05/09/2021 16:00"), sdf.parse("05/09/2021 16:30"), "Vermifugação",
 				clt1, fnc1, pet3);
 
-		Pagamento pagto1 = new PagCartao(null, SituacaoPagamento.QUITADO, srv2, 6);
-		Pagamento pagto2 = new PagDinheiro(null, SituacaoPagamento.PENDENTE, srv1, sdf.parse("20/10/2021 00:00"), null);
-		Pagamento pagto3 = new PagDinheiro(null, SituacaoPagamento.QUITADO, srv3, sdf.parse("05/09/2021 16:30"), null);
-
-		srv1.setPagamento(pagto2);
-		srv2.setPagamento(pagto1);
-		srv3.setPagamento(pagto3);
+		servicoRepository.saveAll(Arrays.asList(srv1, srv2, srv3));
 
 		srv2.getProdutos().addAll(Arrays.asList(p1, p2, p4));
 		srv3.getProdutos().addAll(Arrays.asList(p3));
 
 		servicoRepository.saveAll(Arrays.asList(srv1, srv2, srv3));
+
+		PagCartao pgc1 = new PagCartao(null, 6, new Pagamento(null, SituacaoPagamento.QUITADO, srv2));
+
+		pagCartaoRepository.saveAll(Arrays.asList(pgc1));
+
+		PagDinheiro pgd1 = new PagDinheiro(null, sdf.parse("20/10/2021 00:00"), null,
+				new Pagamento(null, SituacaoPagamento.PENDENTE, srv1));
+		PagDinheiro pgd2 = new PagDinheiro(null, sdf.parse("05/09/2021 16:30"), null,
+				new Pagamento(null, SituacaoPagamento.QUITADO, srv3));
+
+		pagDinheiroRepository.saveAll(Arrays.asList(pgd1, pgd2));
 	}
 
 }
