@@ -1,6 +1,7 @@
 package com.dallan.petshop.resources;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -11,6 +12,7 @@ import com.dallan.petshop.services.PagCartaoService;
 import com.dallan.petshop.services.PagamentoService;
 
 @RestController
+@CrossOrigin(origins = "http://localhost:4200")
 @RequestMapping(value = "/pagcartoes")
 public class PagCartaoResource
 		extends AbstractResource<PagCartao, Integer, PagCartaoDTO, PagCartaoRepository, PagCartaoService> {

@@ -1,5 +1,6 @@
 package com.dallan.petshop.resources;
 
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -9,6 +10,7 @@ import com.dallan.petshop.repositories.ProdutoRepository;
 import com.dallan.petshop.services.ProdutoService;
 
 @RestController
+@CrossOrigin(origins = "http://localhost:4200")
 @RequestMapping(value = "/produtos")
 public class ProdutoResource extends AbstractResource<Produto, Integer, ProdutoDTO, ProdutoRepository, ProdutoService> {
 

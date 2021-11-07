@@ -1,6 +1,7 @@
 package com.dallan.petshop.resources;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -12,6 +13,7 @@ import com.dallan.petshop.services.EnderecoService;
 import com.dallan.petshop.services.PessoaService;
 
 @RestController
+@CrossOrigin(origins = "http://localhost:4200")
 @RequestMapping(value = "/enderecos")
 public class EnderecoResource
 		extends AbstractResource<Endereco, Integer, EnderecoDTO, EnderecoRepository, EnderecoService> {

@@ -13,6 +13,7 @@ public class ProdutoDTO extends AbstractDTO<Produto, Integer> {
 	public void copyFromEntity(Produto entity) {
 		this.id = entity.getId();
 		this.nome = entity.getNome();
+		this.preco = entity.getPreco();
 	}
 
 	public String getNome() {
