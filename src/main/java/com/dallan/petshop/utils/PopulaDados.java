@@ -97,12 +97,13 @@ public class PopulaDados {
 
 		produtoRepository.saveAll(Arrays.asList(p1, p2, p3, p4));
 		categoriaRepository.saveAll(Arrays.asList(cat1, cat2, cat3));
+		
+		p1.getCategorias().addAll(Arrays.asList(cat1));
+		p2.getCategorias().addAll(Arrays.asList(cat1));
+		p3.getCategorias().addAll(Arrays.asList(cat2));
+		p4.getCategorias().addAll(Arrays.asList(cat2, cat3));
 
-		cat1.getProdutos().addAll(Arrays.asList(p1, p2));
-		cat2.getProdutos().addAll(Arrays.asList(p3, p4));
-		cat3.getProdutos().addAll(Arrays.asList(p4));
-
-		categoriaRepository.saveAll(Arrays.asList(cat1, cat2, cat3));
+		produtoRepository.saveAll(Arrays.asList(p1, p2, p3, p4));
 
 		Especie esp1 = new Especie(null, "Cachorro");
 		Especie esp2 = new Especie(null, "Gato");

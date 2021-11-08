@@ -8,6 +8,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -24,7 +26,8 @@ public class Produto extends AbstractEntity<Integer> {
 	private Double preco;
 
 	@JsonIgnore
-	@ManyToMany(mappedBy = "produtos")
+	@ManyToMany
+	@JoinTable(name = "PRODUTO_CATEGORIA", joinColumns = @JoinColumn(name = "id_produto"), inverseJoinColumns = @JoinColumn(name = "id_categoria"))
 	private List<Categoria> categorias = new ArrayList<>();
 
 	@JsonIgnore
